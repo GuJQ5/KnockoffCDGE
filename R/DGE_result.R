@@ -12,7 +12,7 @@
 #'   \item{padj}{BH adjusted p-values.}
 #' }
 #'
-#' #' @examples
+#' @examples
 #' data(DGE_result)
 #' head(DGE_result)
 "DGE_result"
