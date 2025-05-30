@@ -9,7 +9,7 @@ This is a repository for R package performing knockoff-based CDGE analysis to id
 - [R Package "knockoffsr"](https://github.com/biona001/knockoffsr)
 - [R Package "ghostbasil"](https://github.com/JamesYang007/ghostbasil)
 
-For installation of `ghostbasil` package, you can try the following commands.
+For the installation of the `ghostbasil` package, you can try the following commands.
 
 ```
 git clone https://github.com/JamesYang007/ghostbasil
@@ -51,7 +51,7 @@ library(KnockoffCDGE)
 
 ## Usage
 
-`KnockoffCDGE` provides an one-stop inference of direct effect genes via the knockoff-based CDGE analysis. To begin with, all you need include inference results of existing differential gene expression (DGE) analysis and the expression level correlation matrix among genes of interests. In this package, a sample data of 682 genes in 23010 T-cells of 3 psoriasis patients is provided. This sample data is derived from the single-cell RNA-seq dataset collected by [Reynolds et al. (2021)](https://www.science.org/doi/10.1126/science.aba6500) in the study of inflammatory skin diseases.
+`KnockoffCDGE` provides a one-stop inference of direct effect genes via the knockoff-based CDGE analysis. To begin with, you need inference results of existing differential gene expression (DGE) analysis and the expression level correlation matrix among genes of interest. In this package, a sample dataset of 682 genes in 23010 T-cells of 3 psoriasis patients is provided. This sample data is derived from the single-cell RNA-seq dataset collected by [Reynolds et al. (2021)](https://www.science.org/doi/10.1126/science.aba6500) in the study of inflammatory skin diseases.
 
 ```R
 data("DGE_result")
@@ -120,14 +120,14 @@ CDGE_result[1:20,]
 20 FRA10AC1  32.771177    -0.25062612 0.2547872 1.886541e-01 4.224341e-01 -1.3145711 0.5411116         Inf
 ```
 
-Here, argument `M` characterizes the number of knockoff copies you want to generate under the multiple knockoff framework, `n`  depicts the sample size of the analysis, `method` specifies the criterion to generate knockoffs, `Gene_info` includes supplementary information of genes of interest (if avaialable), `verbose` indicates whether progress of computation is plotted and `tol` specifies the convergence tolerance in computing S-matrix for knockoff generation. Current version of this package provides four options of knockoff criterion.
+Here, argument `M` characterizes the number of knockoff copies you want to generate under the multiple knockoff framework, `n`  depicts the sample size of the analysis, `method` specifies the criterion to generate knockoffs, `Gene_info` includes supplementary information of genes of interest (if available), `verbose` indicates whether progress of computation is plotted and `tol` specifies the convergence tolerance in computing S-matrix for knockoff generation. The current version of this package provides four options for the knockoff criterion.
 
 - `"ME"`: **Maximizing the entropy criterion** via interface to Julia ([Gimenez and Zou, 2019](https://proceedings.mlr.press/v89/gimenez19b.html); [Chu et al., 2024](https://doi.org/10.1093/bioinformatics/btae580));
 - `"SDP"`: **Semidefinite program criterion** via interface to Julia ([Barber and Candès, 2015](https://projecteuclid.org/journals/annals-of-statistics/volume-43/issue-5/Controlling-the-false-discovery-rate-via-knockoffs/10.1214/15-AOS1337.full); [Candès et al., 2018](https://academic.oup.com/jrsssb/article/80/3/551/7048447));
 - `"SDP_no_julia"`: **Semidefinite program criterion** without the need of interface to Julia.
 - `"PCA"`: **PCA knockoffs** ([Fan et al., 2020](https://doi.org/10.1080/01621459.2019.1654878)).
 
-Specifically, you can use the latter two if installation of Julia fails.
+Specifically, you can use the latter two if the installation of Julia fails.
 
 For FDR-control inference, you can use knockoff q-values of all features in the column `"q_value_ko"`. Here, the q-value characterizes the smallest target FDR level for each feature to be selected.
 
