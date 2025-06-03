@@ -7,7 +7,7 @@ This is a repository for R package performing knockoff-based CDGE analysis to id
 ### R packages on GitHub
 
 - [R Package "knockoffsr"](https://github.com/biona001/knockoffsr)
-- [R Package "ghostbasil"](https://github.com/JamesYang007/ghostbasil)
+- [R Package "ghostbasil"](https://github.com/JamesYang007/ghostbasil)[^1]
 
 For the installation of the `ghostbasil` package, you can try the following commands.
 
@@ -28,6 +28,8 @@ install.packages('devtools')
 library(devtools)
 install()
 ```
+
+[^1]: Currently, the R Package "ghostbasil" can only be stably installed on R with version <=4.2.0. Thus, it is recommended to install the whole package under R with version <=4.2.0.
 
 ### R packages on CRAN
 
