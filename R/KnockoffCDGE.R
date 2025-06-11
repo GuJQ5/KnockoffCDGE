@@ -16,6 +16,7 @@
 #' @importFrom ghostbasil ghostbasil
 #' @importFrom stats rnorm
 #' @importFrom stats qbeta
+#' @importFrom Rfast spdinv
 #' @export
 #'
 #' @examples
@@ -30,14 +31,14 @@ KnockoffCDGE<-function(Z,Sigma,M,n,method=c("ME","SDP","SDP_no_julia","PCA"),Gen
   p<-nrow(Sigma)
   if(method=="ME")
   {
-    Inv_Sigma<-solve(Sigma)
+    Inv_Sigma<-spdinv(Sigma)
     S<-S_calculation_ME(Sigma,M,verbose,tol)
 
     EZ_KO<-Z-colSums(Inv_Sigma*Z)*S
     V1<-diag((M+1)/M*S)-Inv_Sigma*(S%*%t(S))
     V1.right<-chol(V1)
     Z1<-colSums(V1.right*rnorm(p))
-    Z2<-matrix(M*p,p,M)
+    Z2<-matrix(rnorm(M*p),p,M)
     Z2<-Z2-rowMeans(Z2)
     Z2<-Z2*sqrt(S)
     Z_KO<-Z2+EZ_KO+Z1
@@ -48,14 +49,14 @@ KnockoffCDGE<-function(Z,Sigma,M,n,method=c("ME","SDP","SDP_no_julia","PCA"),Gen
   }
   if(method=="SDP")
   {
-    Inv_Sigma<-solve(Sigma)
+    Inv_Sigma<-spdinv(Sigma)
     S<-S_calculation_SDP(Sigma,M,verbose,tol)
 
     EZ_KO<-Z-colSums(Inv_Sigma*Z)*S
     V1<-diag((M+1)/M*S)-Inv_Sigma*(S%*%t(S))
     V1.right<-chol(V1)
     Z1<-colSums(V1.right*rnorm(p))
-    Z2<-matrix(M*p,p,M)
+    Z2<-matrix(rnorm(M*p),p,M)
     Z2<-Z2-rowMeans(Z2)
     Z2<-Z2*sqrt(S)
     Z_KO<-Z2+EZ_KO+Z1
@@ -66,14 +67,14 @@ KnockoffCDGE<-function(Z,Sigma,M,n,method=c("ME","SDP","SDP_no_julia","PCA"),Gen
   }
   if(method=="SDP_no_julia")
   {
-    Inv_Sigma<-solve(Sigma)
+    Inv_Sigma<-spdinv(Sigma)
     S<-S_calculation_SDP_no_julia(Sigma,M,verbose,tol)
 
     EZ_KO<-Z-colSums(Inv_Sigma*Z)*S
     V1<-diag((M+1)/M*S)-Inv_Sigma*(S%*%t(S))
     V1.right<-chol(V1)
     Z1<-colSums(V1.right*rnorm(p))
-    Z2<-matrix(M*p,p,M)
+    Z2<-matrix(rnorm(M*p),p,M)
     Z2<-Z2-rowMeans(Z2)
     Z2<-Z2*sqrt(S)
     Z_KO<-Z2+EZ_KO+Z1
@@ -117,7 +118,7 @@ KnockoffCDGE<-function(Z,Sigma,M,n,method=c("ME","SDP","SDP_no_julia","PCA"),Gen
     gamma_min = 0.6*mean(u_b)/sqrt(n)
     if(gamma_max>gamma_min)
     {
-      gamma_seq<-seq(gamma_max,gamma_min,(gamma_min-gamma_max)/1000)
+      gamma_seq<-seq(gamma_max,gamma_min,(gamma_min-gamma_max)/500)
       fitted_model<-ghostbasil(A,rr,user.lambdas = gamma_seq)
       beta_lasso<-matrix(fitted_model$betas[,ncol(fitted_model$betas)],nrow = p,ncol = M+1)
     }else{

@@ -15,7 +15,8 @@ Imports:
     data.table,
     ghostbasil,
     knockoffsr,
-    Rdsdp
+    Rdsdp,
+    Rfast
 Depends: 
     R (>= 2.10)
 LazyData: true
