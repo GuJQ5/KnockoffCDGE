@@ -12,8 +12,6 @@
 #' @param tol Convergence tolerance
 #'
 #' @return Knockoff q-values of all features (the smallest target FDR level for each feature to be selected).
-#' @importFrom ghostbasil GhostMatrix
-#' @importFrom ghostbasil ghostbasil
 #' @importFrom stats rnorm
 #' @importFrom stats qbeta
 #' @importFrom Rfast spdinv
@@ -45,7 +43,6 @@ KnockoffCDGE<-function(Z,Sigma,M,n,method=c("ME","SDP","SDP_no_julia","PCA"),Gen
 
     Sigma_minus_S<-Sigma
     diag(Sigma_minus_S)<-diag(Sigma_minus_S)-S
-    A<-GhostMatrix(Sigma = Sigma_minus_S,D=S,n.groups = M+1)
   }
   if(method=="SDP")
   {
@@ -63,7 +60,6 @@ KnockoffCDGE<-function(Z,Sigma,M,n,method=c("ME","SDP","SDP_no_julia","PCA"),Gen
 
     Sigma_minus_S<-Sigma
     diag(Sigma_minus_S)<-diag(Sigma_minus_S)-S
-    A<-GhostMatrix(Sigma = Sigma_minus_S,D=S,n.groups = M+1)
   }
   if(method=="SDP_no_julia")
   {
@@ -81,7 +77,6 @@ KnockoffCDGE<-function(Z,Sigma,M,n,method=c("ME","SDP","SDP_no_julia","PCA"),Gen
 
     Sigma_minus_S<-Sigma
     diag(Sigma_minus_S)<-diag(Sigma_minus_S)-S
-    A<-GhostMatrix(Sigma = Sigma_minus_S,D=S,n.groups = M+1)
   }
   if(method=="PCA")
   {
@@ -105,7 +100,6 @@ KnockoffCDGE<-function(Z,Sigma,M,n,method=c("ME","SDP","SDP_no_julia","PCA"),Gen
     Z_KO<-((N1_list$eigenvectors)%*%(t(N1_list$eigenvectors)%*%Z))[,1]+matrix(rnorm(p*M),p,M)*sqrt(S)
 
     Sigma_minus_S<-N1_list$eigenvectors%*%(t(N1_list$eigenvectors)*N1_list$eigenvalues)
-    A<-GhostMatrix(Sigma = Sigma_minus_S,D=S,n.groups = M+1)
   }
 
   # Run ghostbasil
@@ -119,8 +113,8 @@ KnockoffCDGE<-function(Z,Sigma,M,n,method=c("ME","SDP","SDP_no_julia","PCA"),Gen
     if(gamma_max>gamma_min)
     {
       gamma_seq<-seq(gamma_max,gamma_min,(gamma_min-gamma_max)/500)
-      fitted_model<-ghostbasil(A,rr,user.lambdas = gamma_seq)
-      beta_lasso<-matrix(fitted_model$betas[,ncol(fitted_model$betas)],nrow = p,ncol = M+1)
+      fitted_model<-Ghost_Basil(b=rr,Sigma_S=Sigma_minus_S,S=S,M=M,lambda=gamma_seq)
+      beta_lasso<-matrix(fitted_model$Solution[,ncol(fitted_model$Solution)],nrow = p,ncol = M+1)
     }else{
       beta_lasso<-matrix(0,nrow = p,ncol = M+1)
     }
