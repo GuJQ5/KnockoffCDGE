@@ -7,29 +7,6 @@ This is a repository for R package performing knockoff-based CDGE analysis to id
 ### R packages on GitHub
 
 - [R Package "knockoffsr"](https://github.com/biona001/knockoffsr)
-- [R Package "ghostbasil"](https://github.com/JamesYang007/ghostbasil)[^1]
-
-For the installation of the `ghostbasil` package, you can try the following commands.
-
-```
-git clone https://github.com/JamesYang007/ghostbasil
-cd "…/ghostbasil/R"
-ml mpfr
-ml gcc
-ml R
-ml libgit2
-ml system harfbuzz fribidi
-git pull 
-R
-```
-
-```R
-install.packages('devtools') 
-library(devtools)
-install()
-```
-
-[^1]: Currently, the R Package "ghostbasil" can only be stably installed on R with version <=4.2.0. Thus, it is recommended to install the whole package under R with version <=4.2.0.
 
 ### R packages on CRAN
 
@@ -37,7 +14,8 @@ install()
 - [R Package "data.table"](https://cran.r-project.org/web/packages/data.table/index.html)
 - [R Package "RSpectra"](https://cran.r-project.org/web/packages/RSpectra/index.html)
 - [R Package "rsvd"](https://cran.r-project.org/web/packages/rsvd/index.html)
-- [R Package "Rdsdp"](https://cran.r-project.org/web/packages/data.table/index.html)
+- [R Package "Rdsdp"](https://cran.r-project.org/web/packages/Rdsdp/index.html)
+- [R Package "Rfast"](https://cran.r-project.org/web/packages/Rfast/index.html)
 
 ## Installation
 
