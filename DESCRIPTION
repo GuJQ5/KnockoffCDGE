@@ -1,6 +1,6 @@
 Package: KnockoffCDGE
 Title: Knockoff-based conditional differential gene expression (CDGE) analysis
-Version: 0.3
+Version: 0.3.1
 Authors@R: 
     person("Jiaqi", "Gu", , "jiaqigu@stanford.edu", role = c("aut", "cre"))
 Description: Functions for performing Knockoff-based conditional differential gene expression (CDGE) analysis to identify direct effect genes. Here, we implement the CDGE analysis via the recently developed Ghostknockoff with lasso regression approach (He et al., 2024; Chen et al., 2024)..

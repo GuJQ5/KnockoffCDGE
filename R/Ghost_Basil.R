@@ -55,7 +55,7 @@ Ghost_Basil<-function(b,Sigma_S,S,M,lambda=NULL)
     delta_current[S_new]<--sign(gradient_f[S_new])
     count<-ncol(solution_path)
 
-    remainders_nonzero<-S_new%%p
+    remainders_nonzero<-(S_new-1)%%p+1
     L_nonzero_inv<-matrix(1/sqrt(Sigma_S[remainders_nonzero,remainders_nonzero]+S[remainders_nonzero]),nrow = 1,ncol=1)
     L_nonzero_inv<-as(L_nonzero_inv, "dgCMatrix")
     L_nonzero_inv_b_nonzero<-as.vector(L_nonzero_inv*b[S_new])
@@ -121,7 +121,7 @@ Ghost_Basil<-function(b,Sigma_S,S,M,lambda=NULL)
         count<-count-1
         {
           S_new<-S_zero[which.max(abs(gradient_f_new[S_zero]))]
-          remainders_new<-S_new%%p
+          remainders_new<-(S_new-1)%%p+1
 
           bb<-Sigma_S[remainders_nonzero,remainders_new]
           cc<-Sigma_S[remainders_new,remainders_new]+S[remainders_new]
